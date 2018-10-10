@@ -1,0 +1,14 @@
+﻿@page
+@model qs_csharp.Pages.DSReturnModel
+@{
+    ViewData["Title"] = "DSReturn";
+}
+
+<h4 style="margin-top:3em;">
+    The signing ceremony was completed with
+    status <span style="color:blue;">@(Request.Query["event"])</span>
+</h4>
+
+<p>This page can also implement post-signing processing.</p>
+
+<a href="/">Continue</a>

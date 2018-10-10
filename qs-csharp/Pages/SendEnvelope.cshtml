@@ -1,0 +1,22 @@
+﻿@page
+@model qs_csharp.Pages.SendEnvelopeModel
+@{
+    ViewData["Title"] = "SendEnvelope";
+}
+
+@if (string.IsNullOrEmpty(ViewData["results"] as string))
+{
+
+    <form method="post">
+        <input type="submit" value="Send the document for signature!"
+               style="width:20em;height:2em;background:#1f32bb;color:white;font:bold 1.5em arial;margin: 3em;" />
+    </form>
+
+}
+else
+{
+    <h4 style="margin-top:3em;">@ViewData["results"]</h4>
+    <a href="/">Continue</a>
+}
+
+
