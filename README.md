@@ -10,11 +10,11 @@ trying the DocuSign eSignature API with the
 The repo includes:
 
 1. [Pages\EmbeddedSigning.cshtml.cs](https://github.com/docusign/qs-csharp/blob/master/qs-csharp/Pages/EmbeddedSigning.cshtml.cs)
-   Embedding a signing ceremony in your web application.
+   -- Embedding a signing ceremony in your web application.
 2. [Pages\SendEnvelope.cshtml.cs](https://github.com/docusign/qs-csharp/blob/master/qs-csharp/Pages/SendEnvelope.cshtml.cs)
-   Sending a signing request via an email to the signer.
+   -- Sending a signing request via an email to the signer.
 3. [Pages\ListEnvelopes.cshtml.cs](https://github.com/docusign/qs-csharp/blob/master/qs-csharp/Pages/ListEnvelopes.cshtml.cs)
-   Listing the envelopes in the user's account, including their status.
+   -- Listing the envelopes in the user's account, including their status.
 
 These examples do not include authentication. Instead,
 use the DocuSign DevCenter's
