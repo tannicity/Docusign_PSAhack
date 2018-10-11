@@ -52,6 +52,16 @@ For Windows, Microsoft's
 article notes that the Visual Studio **ASP.NET and web development** 
 and **.NET Core cross-platform development** workloads must be installed.
 
+### Installation problems
+If the solution doesn't start in Visual Studio, here are some suggestions:
+
+* If you see core errors, update to the current version of Visual Studio
+  and install the 
+  [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/thank-you/dotnet-sdk-2.1.403-windows-x64-installer).
+* More errors? Open the Visual Studio installer and install
+  Visual Studio **ASP.NET and web development** 
+  and **.NET Core cross-platform development** workloads.
+
 ### Configure the example files' settings
 Each quick start example is a self-contained file. You will configure
 each of the three example files listed above with:
