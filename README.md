@@ -55,6 +55,8 @@ If the solution doesn't start in Visual Studio, here are some suggestions:
 * If you see core errors, update to the current version of Visual Studio
   and install the 
   [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/thank-you/dotnet-sdk-2.1.403-windows-x64-installer).
+  
+  The free Visual Studio Community version can be used for this solution.
 * More errors? Open the Visual Studio installer and install
   Visual Studio **ASP.NET and web development** 
   and **.NET Core cross-platform development** workloads.
