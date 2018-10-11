@@ -49,7 +49,7 @@ For Windows, Microsoft's
 article notes that the Visual Studio **ASP.NET and web development** 
 and **.NET Core cross-platform development** workloads must be installed.
 
-### Installation problems
+### Troubleshooting problems
 If the solution doesn't start in Visual Studio, here are some suggestions:
 
 * If you see core errors, update to the current version of Visual Studio
