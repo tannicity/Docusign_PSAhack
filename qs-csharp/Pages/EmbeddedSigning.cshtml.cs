@@ -14,7 +14,7 @@ namespace qs_csharp.Pages
     public class EmbeddedSigning : PageModel
     {
         // Constants need to be set:
-        private const string accessToken = "";
+        private const string accessToken = "{ACCESS_TOKEN}";
         private const string accountId = "{ACCOUNT_ID}";
         private const string signerName = "{USER_FULLNAME}";
         private const string signerEmail = "{USER_EMAIL}";
