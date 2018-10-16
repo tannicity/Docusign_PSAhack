@@ -12,7 +12,7 @@ namespace qs_csharp.Pages
     public class ListEnvelopesModel : PageModel
     {
         // Constants need to be set:
-        private const string accessToken = "";
+        private const string accessToken = "{ACCESS_TOKEN}";
         private const string accountId = "{ACCOUNT_ID}";
         private const int envelopesAgeDays = -10;
 
