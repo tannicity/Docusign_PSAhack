@@ -14,9 +14,9 @@ namespace qs_csharp.Pages
     {
         // Constants need to be set:
         private const string accessToken = "";
-        private const string accountId = "";
-        private const string signerName = "Jim Smith";
-        private const string signerEmail = "larry@example.com";
+        private const string accountId = "{ACCOUNT_ID}";
+        private const string signerName = "{USER_FULLNAME}";
+        private const string signerEmail = "{USER_EMAIL}";
         private const string docName = "World_Wide_Corp_lorem.pdf";
 
         // Additional constants
