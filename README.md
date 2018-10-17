@@ -7,6 +7,15 @@ code examples for quickly
 trying the DocuSign eSignature API with the 
 [C# SDK](https://github.com/docusign/docusign-csharp-client).
 
+### Screencast
+Watch the 4 minute [installation video][installVideo]
+
+[![Installation Video][installVideoThumb]][installVideo]
+
+[installVideo]:http://tiny.cc/csharpvideo1
+[installVideoThumb]:https://raw.githubusercontent.com/docusign/qs-csharp/master/documentation/C_sharp_qs_video1_thumb_200.png
+
+
 The repo includes:
 
 1. [Pages\EmbeddedSigning.cshtml.cs](https://github.com/docusign/qs-csharp/blob/master/qs-csharp/Pages/EmbeddedSigning.cshtml.cs)
