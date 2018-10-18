@@ -12,7 +12,7 @@ Watch the 4 minute [installation video][installVideo]
 
 [![Installation Video][installVideoThumb]][installVideo]
 
-[installVideo]:http://tiny.cc/csharpvideo1
+[installVideo]:https://www.youtube.com/watch?v=ADmELHcPpbM&
 [installVideoThumb]:https://raw.githubusercontent.com/docusign/qs-csharp/master/documentation/C_sharp_qs_video1_thumb_200.png
 
 
