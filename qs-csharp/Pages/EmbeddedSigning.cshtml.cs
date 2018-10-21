@@ -44,27 +44,33 @@ namespace qs_csharp.Pages
 
             // 1. Create envelope request object
             //    Start with the different components of the request
+            //    Create the document object
             Document document = new Document
             { DocumentBase64 = Convert.ToBase64String(ReadContent(docName)),
               Name = "Lorem Ipsum", FileExtension = "pdf", DocumentId = "1"
             };
             Document[] documents = new Document[] { document };
 
+            // Create the signer recipient object 
+            Signer signer = new Signer
+            { Email = signerEmail, Name = signerName, ClientUserId = signerClientId,
+              RecipientId = "1", RoutingOrder = "1"
+            };
+
+            // Create the sign here tab (signing field on the document)
             SignHere signHereTab = new SignHere
             { DocumentId = "1", PageNumber = "1", RecipientId = "1",
-                TabLabel = "Sign Here Tab", XPosition = "195", YPosition = "147"
+              TabLabel = "Sign Here Tab", XPosition = "195", YPosition = "147"
             };
             SignHere[] signHereTabs = new SignHere[] { signHereTab };
 
-            Signer signer = new Signer
-            { Email = signerEmail, Name = signerName, ClientUserId = signerClientId,
-              RecipientId = "1", RoutingOrder = "1",
-              Tabs = new Tabs { SignHereTabs = new List<SignHere>(signHereTabs) }
-            };
+            // Add the sign here tab array to the signer object.
+            signer.Tabs = new Tabs { SignHereTabs = new List<SignHere>(signHereTabs) };
+            // Create array of signer objects
             Signer[] signers = new Signer[] { signer };
+            // Create recipients object
             Recipients recipients = new Recipients { Signers = new List<Signer>(signers) };
-
-            // Bring them together in the EnvelopeDefinition
+            // Bring the objects together in the EnvelopeDefinition
             EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition
             { EmailSubject = "Please sign the document",
               Documents = new List<Document>( documents ),
