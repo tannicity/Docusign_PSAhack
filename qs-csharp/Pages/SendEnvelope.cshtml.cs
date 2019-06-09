@@ -13,13 +13,18 @@ namespace qs_csharp.Pages
     public class SendEnvelopeModel : PageModel
     {
         // Constants need to be set:
-        private const string accessToken = "{ACCESS_TOKEN}";
-        private const string accountId = "{ACCOUNT_ID}";
-        private const string signerName = "{USER_FULLNAME}";
-        private const string signerEmail = "{USER_EMAIL}";
+        private string accessToken { get; set; }
+        private string signerName { get; set; }
+        private string signerEmail { get; set; }
+        private string signerId { get; set; }
+        private string signerRouting { get; set; }
+
+        // Constants need to be set:
         private const string docName = "World_Wide_Corp_lorem.pdf";
+        private const string docId = "1";
 
         // Additional constants
+        private const string accountId = "8503012";
         private const string basePath = "https://demo.docusign.net/restapi";
 
         public void OnGet()
@@ -35,25 +40,42 @@ namespace qs_csharp.Pages
             // 1. Create envelope request object
             //    Start with the different components of the request
             //    Create the document object
+            SendEnvelopeModel pageInfo = new SendEnvelopeModel
+            {
+                signerName = "Tanny Ng",
+                signerEmail = "zoomzoom.tmd@gmail.com",
+                signerId = "1000",
+                signerRouting = "1",
+                accessToken = "eyJ0eXAiOiJNVCIsImFsZyI6IlJTMjU2Iiwia2lkIjoiNjgxODVmZjEtNGU1MS00Y2U5LWFmMWMtNjg5ODEyMjAzMzE3In0.AQoAAAABAAUABwAAxWPmeezWSAgAAAWH9Lzs1kgCAC5WseC6Pj1BpkJ7B9-e_VQVAAEAAAAYAAEAAAAFAAAADQAkAAAAZjBmMjdmMGUtODU3ZC00YTcxLWE0ZGEtMzJjZWNhZTNhOTc4EgABAAAACwAAAGludGVyYWN0aXZlMAAAxWPmeezWSDcA5MmzWuy8K0uaejoXWPZBcw.S5mtjFB8Cbr4JnB18EWMetaq0qcEcXX17rTl59iBl3dAsOwl-un-6a4xmCRB1Py81pit-tHpBf3CpgwHNfbBF5zCVIpCXWzFYIN4ySmG2YEDXu45edHuQhdya-DeZHGktH_19oJoSeRyN70mKXT7F5KmpqPVWW_9hC8bQ361fojkvC7F2hnbtoG0NDESq2I_suZoOBx0Ndv8oYSwpS65DT420rcQpSQsxBa5GdUt42zTlnJ5JwRsMUIzOCwY8yXfLjt0kAPeuiZbQ8E0NrRCqnMieR0ghAUwi4VC-LWn8NgikOyN2m74K0iTmnpfAMDayheM9qO3aEvT2ejPtK_jmw"
+            };
+
             Document document = new Document
             {
                 DocumentBase64 = Convert.ToBase64String(ReadContent(docName)),
-                Name = "Lorem Ipsum",
+                Name = "Petition_v1",
                 FileExtension = "pdf",
-                DocumentId = "1"
+                DocumentId = docId
             };
             Document[] documents = new Document[] { document };
 
             // Create the signer recipient object 
             Signer signer = new Signer
-            { Email = signerEmail, Name = signerName,
-              RecipientId = "1", RoutingOrder = "1"
+            {
+                Email = pageInfo.signerEmail,
+                Name = pageInfo.signerName,
+                RecipientId = pageInfo.signerId,
+                RoutingOrder = pageInfo.signerRouting
             };
 
             // Create the sign here tab (signing field on the document)
             SignHere signHereTab = new SignHere
-            { DocumentId = "1", PageNumber = "1", RecipientId = "1",
-              TabLabel = "Sign Here Tab", XPosition = "195", YPosition = "147"
+            {
+                DocumentId = docId,
+                PageNumber = "1",
+                RecipientId = pageInfo.signerId,
+                TabLabel = "Sign Here Tab",
+                XPosition = "195",
+                YPosition = "147"
             };
             SignHere[] signHereTabs = new SignHere[] { signHereTab };
 
@@ -74,7 +96,7 @@ namespace qs_csharp.Pages
 
             // 2. Use the SDK to create and send the envelope
             ApiClient apiClient = new ApiClient(basePath);
-            apiClient.Configuration.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            apiClient.Configuration.AddDefaultHeader("Authorization", "Bearer " + pageInfo.accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient.Configuration);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
             ViewData["results"] = $"Envelope status: {results.Status}. Envelope ID: {results.EnvelopeId}";

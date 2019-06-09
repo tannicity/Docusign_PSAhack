@@ -13,15 +13,18 @@ namespace qs_csharp.Pages
 {
     public class EmbeddedSigning : PageModel
     {
+        private string accessToken { get; set; }
+        private string signerName { get; set; }
+        private string signerEmail { get; set; }
+        private string signerId { get; set; }
+        private string signerRouting { get; set; }
+
         // Constants need to be set:
-        private const string accessToken = "{ACCESS_TOKEN}";
-        private const string accountId = "{ACCOUNT_ID}";
-        private const string signerName = "{USER_FULLNAME}";
-        private const string signerEmail = "{USER_EMAIL}";
         private const string docName = "World_Wide_Corp_lorem.pdf";
+        private const string docId = "1";
 
         // Additional constants
-        private const string signerClientId = "1000";
+        private const string accountId = "8503012";
         private const string basePath = "https://demo.docusign.net/restapi";
 
         // Change the port number in the Properties / launchSettings.json file:
@@ -45,22 +48,40 @@ namespace qs_csharp.Pages
             // 1. Create envelope request object
             //    Start with the different components of the request
             //    Create the document object
+            EmbeddedSigning pageInfo = new EmbeddedSigning
+            {
+                signerName = "Tanny Ng",
+                signerEmail = "zoomzoom.tmd@gmail.com",
+                signerId = "1000",
+                signerRouting = "1",
+                accessToken = "eyJ0eXAiOiJNVCIsImFsZyI6IlJTMjU2Iiwia2lkIjoiNjgxODVmZjEtNGU1MS00Y2U5LWFmMWMtNjg5ODEyMjAzMzE3In0.AQoAAAABAAUABwCALdLYwezWSAgAgG315gTt1kgCAC5WseC6Pj1BpkJ7B9-e_VQVAAEAAAAYAAkAAAAFAAAAKwAAAC0AAAAvAAAAMQAAADIAAAA4AAAAMwAAADUAAAANACQAAABmMGYyN2YwZS04NTdkLTRhNzEtYTRkYS0zMmNlY2FlM2E5NzgSAAEAAAALAAAAaW50ZXJhY3RpdmUwAIAAodfB7NZINwDkybNa7LwrS5p6OhdY9kFz.LHHS7H4GTayO31-USuesGb--00NMcrOqO0KnzoKMhM55ClXR2vw2OzKShqI3yhIjHc0CyGoyOtNrEW0MN0o8rRZuctb5hNtR9RAtbuNZ-hITpjyL9LBFZWxV91dYAmlgrBAcM2LtrZTWHolkqGLUNQMpD_vI8BqqT3UEO9zBL5OUz4WwSZgBoCmdejMVq-zOq-ALPpD6YoX0HoHiZHVl4_DTwTiJ_lB6I3z72fh3-i6f7iD_kaJyc2nA5jAtRXVGvX_gNUPhA4aDIZ8tJ8TTZW9hbgQ2BkFlwm69xqvRjMUuQlg6xnfW7vlvtI6tQ7GAUlVhQS5KX9FveUDYogidQw"
+            };
+
             Document document = new Document
             { DocumentBase64 = Convert.ToBase64String(ReadContent(docName)),
-              Name = "Lorem Ipsum", FileExtension = "pdf", DocumentId = "1"
+              Name = "Petition Sample", FileExtension = "pdf", DocumentId = docId
             };
             Document[] documents = new Document[] { document };
 
             // Create the signer recipient object 
             Signer signer = new Signer
-            { Email = signerEmail, Name = signerName, ClientUserId = signerClientId,
-              RecipientId = "1", RoutingOrder = "1"
+            {
+                Email = pageInfo.signerEmail,
+                Name = pageInfo.signerName,
+                ClientUserId = pageInfo.signerId,
+                RecipientId = pageInfo.signerId,
+                RoutingOrder = pageInfo.signerRouting
             };
 
             // Create the sign here tab (signing field on the document)
             SignHere signHereTab = new SignHere
-            { DocumentId = "1", PageNumber = "1", RecipientId = "1",
-              TabLabel = "Sign Here Tab", XPosition = "195", YPosition = "147"
+            {
+                DocumentId = docId,
+                PageNumber = "1",
+                RecipientId = pageInfo.signerId,
+                TabLabel = "Sign Here Tab",
+                XPosition = "195",
+                YPosition = "147"
             };
             SignHere[] signHereTabs = new SignHere[] { signHereTab };
 
@@ -80,16 +101,16 @@ namespace qs_csharp.Pages
 
             // 2. Use the SDK to create and send the envelope
             ApiClient apiClient = new ApiClient(basePath);
-            apiClient.Configuration.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            apiClient.Configuration.AddDefaultHeader("Authorization", "Bearer " + pageInfo.accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient.Configuration);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
 
             // 3. Create Envelope Recipient View request obj
             string envelopeId = results.EnvelopeId;
             RecipientViewRequest viewOptions = new RecipientViewRequest
-            { ReturnUrl = returnUrl, ClientUserId = signerClientId,
+            { ReturnUrl = returnUrl, ClientUserId = pageInfo.signerId,
               AuthenticationMethod = "none",
-              UserName = signerName, Email = signerEmail
+              UserName = pageInfo.signerName, Email = pageInfo.signerEmail
             };
 
             // 4. Use the SDK to obtain a Recipient View URL
